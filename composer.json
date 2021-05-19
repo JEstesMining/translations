@@ -83,6 +83,7 @@
     },
     "require-dev": {
         "symfony/debug-bundle": "^5.2",
+        "symfony/maker-bundle": "^1.31",
         "symfony/var-dumper": "^5.2",
         "symfony/web-profiler-bundle": "^5.2"
     }
