@@ -9,9 +9,12 @@
         <title>{% block title %}{% endblock %} | DasCrypto.farm</title>
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-            {{encore_entry_script_tags('app')}}
-        {% endblock %}
+      {% if is_granted('ROLE_USER') %}
+        {% include '_navbar.html.twig' %}
+      {% endif %}
+      {% block body %}{% endblock %}
+      {% block javascripts %}
+        {{encore_entry_script_tags('app')}}
+      {% endblock %}
     </body>
 </html>
