@@ -1,4 +1,4 @@
 framework:
     mailer:
-        message_bus: command.bus
+        message_bus: null
         dsn: '%env(MAILER_DSN)%'

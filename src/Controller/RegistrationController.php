@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Message\UserCreateCommand;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,9 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Uid\Uuid;
 
 class RegistrationController extends AbstractController
 {
+    private $commandBus;
+
+    public function __construct(MessageBusInterface $commandBus)
+    {
+        $this->commandBus = $commandBus;
+    }
+
     /**
      * @Route("/register", name="app_register")
      */
@@ -30,15 +40,22 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // @todo UserCreateCommand(['email' => '', 'password' => 'hash'], [
-            //   Client IP, User-Agent, Timestamp
-            // ]);
-            // commandBus->dispatch
+            $uuid = (string) Uuid::v6();
+            $cmd = new UserCreateCommand([
+                'uuid'     => $uuid,
+                'email'    => $user->getEmail(),
+                'password' => $user->getPassword(),
+            ], [
+                'http_user_agent' => $request->server->get('HTTP_USER_AGENT'),
+                'client_ip'       => $request->getClientIp(),
+            ]);
+            dd($cmd);
+
             // addFlash('success', 'account created');
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            //$entityManager = $this->getDoctrine()->getManager();
+            //$entityManager->persist($user);
+            //$entityManager->flush();
             // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_login');
