@@ -8,7 +8,7 @@
     <div class="col-sm-4">
 
       <form method="post">
-        <div class="card mt-5">
+        <div class="card mt-5 shadow">
           <div class="card-body">
             {% if error %}
               <div class="alert alert-danger" role="alert">{{error.messageKey|trans(error.messageData, 'security')}}</div>
@@ -32,7 +32,8 @@
             </div>
 
           </div>
-          <div class="card-footer text-end">
+          <div class="card-footer p-3 text-end">
+            <a href="{{path('app_register')}}" class="btn btn-secondary me-2"><i class="fas fa-user-plus fa-fw"></i>&nbsp;{{'register'|trans}}</a>
             <button class="btn btn-primary" type="submit"><i class="fas fa-sign-in-alt fa-fw"></i>&nbsp;{{'sign in'|trans}}</button>
           </div>
         </div>
