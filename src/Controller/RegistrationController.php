@@ -48,8 +48,9 @@ class RegistrationController extends AbstractController
             ], [
                 'http_user_agent' => $request->server->get('HTTP_USER_AGENT'),
                 'client_ip'       => $request->getClientIp(),
+                'timestamp'       => (new \DateTime())->format('c'),
             ]);
-            dd($cmd);
+            $this->commandBus;
 
             // addFlash('success', 'account created');
 
