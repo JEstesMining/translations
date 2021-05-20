@@ -30,6 +30,12 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // @todo UserCreateCommand(['email' => '', 'password' => 'hash'], [
+            //   Client IP, User-Agent, Timestamp
+            // ]);
+            // commandBus->dispatch
+            // addFlash('success', 'account created');
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
