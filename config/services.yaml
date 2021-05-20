@@ -12,13 +12,12 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     _instanceof:
-        #Symfony\Component\Messenger\Handler\MessageHandlerInterface:
-        #    tags:
-        #        - { name: messenger.message_handler, bus: command.bus }
-
         App\MessageHandler\CommandHandlerInterface:
             tags:
                 - { name: messenger.message_handler, bus: command.bus }
+        App\MessageHandler\EventHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: event.bus }
         App\MessageHandler\QueryHandlerInterface:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }

@@ -24,7 +24,7 @@ trait MetadataTrait
 
     public function getMetadataValue(string $key)
     {
-        if ($this->has($key)) {
+        if ($this->hasMetadataValue($key)) {
             return $this->_metadata[$key];
         }
     }

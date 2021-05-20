@@ -24,7 +24,7 @@ trait PayloadTrait
 
     public function getPayloadValue(string $key)
     {
-        if ($this->has($key)) {
+        if ($this->hasPayloadValue($key)) {
             return $this->_payload[$key];
         }
     }

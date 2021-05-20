@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
 
             $uuid = (string) Uuid::v6();
             $cmd = new UserCreateCommand([
-                'uuid'     => $uuid,
+                'id'       => $uuid,
                 'email'    => $user->getEmail(),
                 'password' => $user->getPassword(),
             ], [
@@ -50,14 +50,9 @@ class RegistrationController extends AbstractController
                 'client_ip'       => $request->getClientIp(),
                 'timestamp'       => (new \DateTime())->format('c'),
             ]);
-            $this->commandBus;
+            $this->commandBus->dispatch($cmd);
 
-            // addFlash('success', 'account created');
-
-            //$entityManager = $this->getDoctrine()->getManager();
-            //$entityManager->persist($user);
-            //$entityManager->flush();
-            // do anything else you need here, like send an email
+            $this->addFlash('success', 'account created');
 
             return $this->redirectToRoute('app_login');
         }
