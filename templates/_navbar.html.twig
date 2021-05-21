@@ -19,9 +19,9 @@
             <i class="fas fa-user-circle fa-fw"></i>&nbsp;{{app.user.email}}
           </a>
           <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog fa-fw"></i>&nbsp;settings</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-key fa-fw"></i>&nbsp;change password</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-at fa-fw"></i>&nbsp;change email</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog fa-fw"></i>&nbsp;{{'settings'|trans}}</a></li>
+            <li><a class="dropdown-item" href="{{path('app_change_password')}}"><i class="fas fa-key fa-fw"></i>&nbsp;{{'change password'|trans}}</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-at fa-fw"></i>&nbsp;{{'change email'|trans}}</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;{{'sign out'|trans}}</a></li>
           </ul>
