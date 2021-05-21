@@ -4,15 +4,14 @@ namespace App\MessageHandler;
 
 use App\Entity\User;
 use App\HandleTrait;
-use App\Message\UserUpdatedPasswordEvent;
+use App\Message\UserUpdatedEmailEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class UpdateUserEntityOnUserUpdatedPasswordEventHandler implements EventHandlerInterface
+final class UpdateUserEntityOnUserUpdatedEmailEventHandler implements EventHandlerInterface
 {
     use HandleTrait;
 
@@ -28,7 +27,7 @@ final class UpdateUserEntityOnUserUpdatedPasswordEventHandler implements EventHa
         $this->setQueryBus($queryBus);
     }
 
-    public function __invoke(UserUpdatedPasswordEvent $message)
+    public function __invoke(UserUpdatedEmailEvent $message)
     {
         $this->stopwatch->start(__FUNCTION__, __CLASS__);
         $entity = $this->manager->getRepository(User::class)->find($message->getPayloadValue('id'));
@@ -37,7 +36,7 @@ final class UpdateUserEntityOnUserUpdatedPasswordEventHandler implements EventHa
             throw new UnrecoverableMessageHandlingException('User not found in database');
         }
 
-        $entity->setPassword($message->getPayloadValue('password'));
+        $entity->setEmail($message->getPayloadValue('email'));
         $this->manager->persist($entity);
         $this->manager->flush();
 
