@@ -40,6 +40,16 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $locale;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $timezone;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -132,6 +142,35 @@ class User implements UserInterface
      */
     public function getLocale(): string
     {
-        return 'en';
+        if (!$this->locale) {
+            $this->locale = 'en';
+        }
+
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     */
+    public function getTimezone(): string
+    {
+        if (!$this->timezone) {
+            $this->timezone = 'UTC';
+        }
+
+        return $this->timezone;
+    }
+
+    public function setTimezone(string $timezone): self
+    {
+        $this->timezone = $timezone;
+
+        return $this;
     }
 }

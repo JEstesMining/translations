@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{'settings'|trans}}{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-4">
+
+      {{form_start(form)}}
+        <div class="card mt-5 shadow">
+          <div class="card-body">
+
+            {{form_row(form.locale)}}
+
+            {{form_row(form.timezone)}}
+
+          </div>
+          <div class="card-footer p-3 text-end">
+            <button class="btn btn-primary" type="submit"><i class="fas fa-save fa-fw"></i>&nbsp;{{'update'|trans}}</button>
+          </div>
+        </div>
+      {{form_end(form)}}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

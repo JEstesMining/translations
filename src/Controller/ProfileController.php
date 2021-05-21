@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Form\ChangeEmailFormType;
+use App\Form\SettingFormType;
 use App\Message\UserUpdateEmailCommand;
+use App\Message\UserUpdateSettingCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProfileController extends AbstractController
 {
@@ -23,7 +24,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/edit-email", name="app_edit_email")
      */
-    public function editEmail(Request $request, ValidatorInterface $validator): Response
+    public function editEmail(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $form = $this->createForm(ChangeEmailFormType::class, ['email' => $this->getUser()->getEmail()], [
@@ -54,19 +55,40 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    public function editLocale(Request $request): Response
+    /**
+     * @Route("/settings", name="app_setting")
+     */
+    public function settings(Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        return $this->render('profile/edit_locale.html.twig', [
+        $form = $this->createForm(SettingFormType::class, [
+            'locale'   => $this->getUser()->getLocale(),
+            'timezone' => $this->getUser()->getTimezone(),
         ]);
-    }
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $payload = [
+                'id'       => (string) $this->getUser()->getId(),
+                'locale'   => $data['locale'],
+                'timezone' => $data['timezone'],
+            ];
+            $metadata = [
+                'http_user_agent' => $request->server->get('HTTP_USER_AGENT'),
+                'client_ip'       => $request->getClientIp(),
+                'timestamp'       => (new \DateTime())->format('c'),
+            ];
 
-    public function editTimezone(Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+            $this->commandBus->dispatch(new UserUpdateSettingCommand($payload, $metadata));
 
-        return $this->render('profile/edit_timezone.html.twig', [
+            $this->addFlash('success', 'settings updated');
+
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('profile/setting.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
