@@ -42,9 +42,10 @@ class RegistrationController extends AbstractController
 
             $uuid = (string) Uuid::v6();
             $cmd = new UserCreateCommand([
-                'id'       => $uuid,
-                'email'    => $user->getEmail(),
-                'password' => $user->getPassword(),
+                'id'          => $uuid,
+                'email'       => $user->getEmail(),
+                'password'    => $user->getPassword(),
+                'invite_code' => $form->get('invite_code')->getData(),
             ], [
                 'http_user_agent' => $request->server->get('HTTP_USER_AGENT'),
                 'client_ip'       => $request->getClientIp(),

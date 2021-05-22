@@ -17,11 +17,11 @@
 
             {{form_row(form.plainPassword)}}
 
-            {#{{form_row(form.inviteCode)}}#}
+            {{form_row(form.invite_code)}}
 
           </div>
           <div class="card-footer p-3 text-end">
-            <a href="{{path('app_login')}}" class="btn btn-secondary me-2"><i class="fas fa-sign-in-alt fa-fw"></i>&nbsp;{{'sign in'|trans}}</a>
+            <a href="{{path('app_login')}}" class="btn btn-outline-secondary me-2"><i class="fas fa-sign-in-alt fa-fw"></i>&nbsp;{{'sign in'|trans}}</a>
             <button type="submit" class="btn btn-primary"><i class="fas fa-user-plus fa-fw"></i>&nbsp;{{'register'|trans}}</button>
           </div>
         </div>

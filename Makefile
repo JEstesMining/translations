@@ -37,3 +37,6 @@ db.migrate:
 
 make.migration:
 	docker exec -it ${DOCKER_PHP_CONTAINER} bin/console make:migration --env=dev -vvv -n
+
+app.invite.generate:
+	docker exec -it ${DOCKER_PHP_CONTAINER} bin/console app:invite:generate --env=dev -vvv -n --count=1

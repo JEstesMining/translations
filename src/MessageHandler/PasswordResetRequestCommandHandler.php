@@ -73,8 +73,8 @@ final class PasswordResetRequestCommandHandler implements CommandHandlerInterfac
             ->setPayload($message->getPayload())
             ->setMetadata($message->getMetadata())
         ;
-        //$this->manager->persist($event);
-        //$this->manager->flush();
+        $this->manager->persist($event);
+        $this->manager->flush();
 
         $this->eventBus->dispatch(new PasswordResetRequestedEvent($message->getPayload(), $message->getMetadata()));
         $this->dispatcher->dispatch(new GenericEvent($event), 'user.password_reset_requested');

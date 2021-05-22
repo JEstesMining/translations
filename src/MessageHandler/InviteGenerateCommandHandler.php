@@ -2,10 +2,11 @@
 
 namespace App\MessageHandler;
 
-use App\Entity\UserEventStore;
-use App\Message\UserCreateCommand;
-use App\Message\UserCreatedEvent;
-use App\Message\InviteUseCommand;
+use App\Entity\Invite;
+use App\Entity\InviteEventStore;
+use App\Message\InviteGenerateCommand;
+use App\Message\InviteGeneratedEvent;
+use App\HandleTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Psr\Log\LoggerInterface;
@@ -13,41 +14,44 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Uid\Ulid;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
 
-final class UserCreateCommandHandler implements CommandHandlerInterface
+final class InviteGenerateCommandHandler implements CommandHandlerInterface
 {
+    use HandleTrait;
+
     protected $manager;
     protected $stopwatch;
     protected $eventBus;
     protected $dispatcher;
-    protected $commandBus;
 
-    public function __construct(EntityManagerInterface $manager, MessageBusInterface $eventBus, EventDispatcherInterface $dispatcher, LoggerInterface $logger, MessageBusInterface $commandBus)
+    public function __construct(EntityManagerInterface $manager, MessageBusInterface $eventBus, EventDispatcherInterface $dispatcher, LoggerInterface $logger, MessageBusInterface $queryBus)
     {
         $this->manager    = $manager;
         $this->stopwatch  = new Stopwatch(true);
         $this->eventBus   = $eventBus;
         $this->dispatcher = $dispatcher;
         $this->logger     = $logger;
-        $this->commandBus = $commandBus;
+
+        $this->setQueryBus($queryBus);
     }
 
-    public function __invoke(UserCreateCommand $message)
+    public function __invoke(InviteGenerateCommand $message)
     {
         $this->stopwatch->start(__FUNCTION__, __CLASS__);
 
-        if ($message->hasPayloadValue('invite_code')) {
-            $this->commandBus->dispatch(new InviteUseCommand([
-                'code' => $message->getPayloadValue('invite_code'),
-            ], array_merge($message->getMetadata(), [
-                'user_id'   => $message->getPayloadValue('id'),
-            ])));
+        $entity = $this->manager->getRepository(Invite::class)->findOneBy([
+            'code' => $message->getPayloadValue('code'),
+        ]);
+        if ($entity) {
+            // Code already available for use
+            return;
         }
 
-        $event = (new UserEventStore())
+        $event = (new InviteEventStore())
             ->setEventId((string) new Ulid())
-            ->setEventType('Created')
-            ->setAggregateRootId($message->getPayloadValue('id'))
+            ->setEventType('Generated')
+            ->setAggregateRootId($message->getPayloadValue('code'))
             ->setCreatedAt(new \DateTimeImmutable($message->getMetadataValue('timestamp')))
             ->setPayload($message->getPayload())
             ->setMetadata($message->getMetadata())
@@ -55,8 +59,8 @@ final class UserCreateCommandHandler implements CommandHandlerInterface
         $this->manager->persist($event);
         $this->manager->flush();
 
-        $this->eventBus->dispatch(new UserCreatedEvent($message->getPayload(), $message->getMetadata()));
-        $this->dispatcher->dispatch(new GenericEvent($event), 'user.created');
+        $this->eventBus->dispatch(new InviteGeneratedEvent($message->getPayload(), $message->getMetadata()));
+        $this->dispatcher->dispatch(new GenericEvent($event), 'invite.generated');
 
         $stopwatchEvent = $this->stopwatch->stop(__FUNCTION__);
         $this->logger->debug('Completed {category}::{name} in "{duration} (ms)" and used {memory}MB', [
