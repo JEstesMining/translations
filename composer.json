@@ -14,6 +14,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",
         "phpdocumentor/reflection-docblock": "^5.2",
+        "symfony/amazon-mailer": "5.2.*",
         "symfony/cache": "5.2.*",
         "symfony/console": "5.2.*",
         "symfony/doctrine-messenger": "5.2.*",

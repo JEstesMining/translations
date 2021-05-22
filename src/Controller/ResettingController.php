@@ -2,28 +2,63 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\ResetPasswordFormType;
+use App\Message\PasswordResetRequestCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class ResettingController extends AbstractController
 {
-    // display form, submit, send email if email found, redirect to checkEmail
+    private $commandBus;
+
+    public function __construct(MessageBusInterface $commandBus)
+    {
+        $this->commandBus = $commandBus;
+    }
+
+    /**
+     * @Route("/reset-password", name="app_resetting_request")
+     */
     public function request(Request $request): Response
     {
+        // @todo Limit the amount of requests similar to login
+        $form = $this->createForm(ResetPasswordFormType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $entity = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+                'email' => strtolower($data['email']),
+            ]);
+            if ($entity) {
+                $payload = [
+                    'id' => (string) $entity->getId(),
+                ];
+                $metadata = [
+                    'http_user_agent' => $request->server->get('HTTP_USER_AGENT'),
+                    'client_ip'       => $request->getClientIp(),
+                    'timestamp'       => (new \DateTime())->format('c'),
+                ];
+                $this->commandBus->dispatch(new PasswordResetRequestCommand($payload, $metadata));
+            }
+
+            $this->addFlash('success', 'email has been sent with password reset instructions');
+
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('resetting/request.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
-    // display "Check Email" page
-    public function checkEmail(Request $request): Response
-    {
-        return $this->render('resetting/checkEmail.html.twig', [
-        ]);
-    }
-
-    // reset based on the provided token
+    /**
+     * @Route("/reset-password/{token}", name="app_resetting_reset")
+     */
     public function reset(Request $request, string $token): Response
     {
         return $this->render('resetting/checkEmail.html.twig', [

@@ -50,6 +50,16 @@ class User implements UserInterface
      */
     private $timezone;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $confirmationToken;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -57,6 +67,10 @@ class User implements UserInterface
 
     public function setId(string $id): self
     {
+        if ($this->id && $this->id != $id) {
+            throw new \Exception('ID Cannot be modified');
+        }
+
         $this->id = $id;
 
         return $this;
@@ -172,5 +186,35 @@ class User implements UserInterface
         $this->timezone = $timezone;
 
         return $this;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(string $token): self
+    {
+        $this->confirmationToken = $token;
+
+        return $this;
+    }
+
+    public function getPasswordRequestedAt(): ?\DateTimeInterface
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt(\DateTimeInterface $timestamp): self
+    {
+        $this->passwordRequestedAt = $timestamp;
+
+        return $this;
+    }
+
+    public function isPasswordRequestNonExpired(int $ttl): bool
+    {
+        return $this->getPasswordRequestedAt() instanceof \DateTimeInterface &&
+               $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
     }
 }
