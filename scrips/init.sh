@@ -7,6 +7,7 @@ apt update
 # Install deps
 apt install -y php-cli \
     php-apcu \
+    php-xml \
     php-ctype \
     php-curl \
     php-fpm \
