@@ -37,7 +37,7 @@ class SendEmailOnUserPasswordResetRequestedSubscriber implements EventSubscriber
             return;
         }
 
-        $resetUrl = $this->router->generate('app_resetting_request', ['token' => $entity->getConfirmationToken()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $resetUrl = $this->router->generate('app_resetting_reset', ['token' => $entity->getConfirmationToken()], UrlGeneratorInterface::ABSOLUTE_URL);
         $email = (new Email())
             ->from('noreply@dascrypto.farm')
             ->to($entity->getEmail())
