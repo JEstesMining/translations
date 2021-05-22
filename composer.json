@@ -86,7 +86,7 @@
             "@auto-scripts"
         ],
         "compile": [
-            "yarn run build"
+            "./node_modules/.bin/encore production --verbose"
         ]
     },
     "conflict": {
