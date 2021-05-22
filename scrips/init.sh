@@ -20,4 +20,4 @@ fi
 
 php composer-setup.php --install-dir=/app/bin --filename=composer
 rm composer-setup.php
-/app/bin/composer install --no-dev --optimize-autoloader --ignore-platform-req
+runuser -l ubuntu -- /app/bin/composer install --no-dev --optimize-autoloader --ignore-platform-req
