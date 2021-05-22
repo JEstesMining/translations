@@ -1,3 +1,4 @@
+bin/composer
 
 ###> symfony/framework-bundle ###
 /.env.local
