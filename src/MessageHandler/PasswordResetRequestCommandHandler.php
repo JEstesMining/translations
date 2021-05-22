@@ -43,13 +43,15 @@ final class PasswordResetRequestCommandHandler implements CommandHandlerInterfac
         // 1. get user
         $entity = $this->manager->getRepository(User::class)->find($message->getPayloadValue('id'));
         if (null === $entity) {
-            throw new UnrecoverableMessageHandlingException('User not found in database');
+            //throw new UnrecoverableMessageHandlingException('User not found in database');
+            return;
         }
 
         // 2. Check password request ttl
         //    a. if not exipred, exit
         if ($entity->isPasswordRequestNonExpired(3600)) {
-            throw new UnrecoverableMessageHandlingException('Password Request has not expired');
+            //throw new UnrecoverableMessageHandlingException('Password Request has not expired');
+            return;
         }
 
         // 3. Generate Confirmation token

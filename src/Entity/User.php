@@ -193,7 +193,7 @@ class User implements UserInterface
         return $this->confirmationToken;
     }
 
-    public function setConfirmationToken(string $token): self
+    public function setConfirmationToken(?string $token): self
     {
         $this->confirmationToken = $token;
 
@@ -205,7 +205,7 @@ class User implements UserInterface
         return $this->passwordRequestedAt;
     }
 
-    public function setPasswordRequestedAt(\DateTimeInterface $timestamp): self
+    public function setPasswordRequestedAt(?\DateTimeInterface $timestamp): self
     {
         $this->passwordRequestedAt = $timestamp;
 

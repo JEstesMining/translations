@@ -13,16 +13,40 @@ class ResetPasswordFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', Type\EmailType::class, [
-                'label' => 'email address',
-                'constraints' => [
-                    new Constraints\NotBlank([
-                        'message' => 'please enter email',
-                    ]),
-                    new Constraints\Email([
-                        'message' => 'invalid email address',
-                    ]),
-                ]
+            ->add('plain_password', Type\RepeatedType::class, [
+                'type' => Type\PasswordType::class,
+                'options' => [
+                    'attr' => ['autocomplete' => 'new-password'],
+                ],
+                'first_options' => [
+                    'label' => 'password',
+                    'constraints' => [
+                        new Constraints\NotBlank([
+                            'message' => 'Please enter a password',
+                        ]),
+                        new Constraints\Length([
+                            'min' => 6,
+                            'minMessage' => 'Your password should be at least {{ limit }} characters',
+                            // max length allowed by Symfony for security reasons
+                            'max' => 4096,
+                        ]),
+                    ],
+                ],
+                'second_options' => [
+                    'label' => 'repeat password',
+                    'constraints' => [
+                        new Constraints\NotBlank([
+                            'message' => 'Please enter a password',
+                        ]),
+                        new Constraints\Length([
+                            'min' => 6,
+                            'minMessage' => 'Your password should be at least {{ limit }} characters',
+                            // max length allowed by Symfony for security reasons
+                            'max' => 4096,
+                        ]),
+                    ],
+                ],
+
             ])
         ;
     }
