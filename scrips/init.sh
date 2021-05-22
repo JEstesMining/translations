@@ -5,7 +5,15 @@ set -e
 apt update
 
 # Install deps
-apt install -y php-cli
+apt install -y php-cli \
+    php-apcu \
+    php-ctype \
+    php-openssl \
+    php-curl \
+    php-fpm \
+    php-pgsql \
+    php-phar \
+    php-redis
 
 # Install composer into /app/bin
 EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
@@ -20,4 +28,5 @@ fi
 
 php composer-setup.php --install-dir=/app/bin --filename=composer
 rm composer-setup.php
-runuser -l ubuntu -- /app/bin/composer install --no-dev --optimize-autoloader --ignore-platform-req
+chmod +x /app/bin/composer
+runuser -l ubuntu -c '/app/bin/composer install --prefer-source --no-dev --optimize-autoloader --ignore-platform-reqs'
