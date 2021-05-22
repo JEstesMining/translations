@@ -28,4 +28,4 @@ fi
 php composer-setup.php --install-dir=/app/bin --filename=composer
 rm composer-setup.php
 chmod +x /app/bin/composer
-runuser -l ubuntu -c '/app/bin/composer install --prefer-source --no-dev --optimize-autoloader --ignore-platform-reqs'
+runuser -l ubuntu -c 'cd /app && php /app/bin/composer install --prefer-source --no-dev --optimize-autoloader --ignore-platform-reqs'
