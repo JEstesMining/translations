@@ -8,7 +8,6 @@ apt update
 apt install -y php-cli \
     php-apcu \
     php-ctype \
-    php-openssl \
     php-curl \
     php-fpm \
     php-pgsql \
