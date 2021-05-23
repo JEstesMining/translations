@@ -46,11 +46,11 @@ services:
         class: Redis
         calls:
             - connect:
-                - '%env(REDIS_HOST)%'
-                - '%env(int:REDIS_PORT)%'
+                - '%env(key:host:url:REDIS_URL)%'
+                - '%env(int:key:port:url:REDIS_URL)%'
             # uncomment the following if your Redis server requires a password
             #- auth:
-            #    - '%env(REDIS_PASSWORD)%'
+            #    - '%env(key:password:url:REDIS_URL)%'
 
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:
