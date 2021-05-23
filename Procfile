@@ -1,8 +1,7 @@
 # -*- mode: conf -*-
 # vi: set ft=conf:
 
-# @todo Release Scripts
-#release: ./bin/release
+release: ./bin/release
 
 web: vendor/bin/heroku-php-nginx -F php-fpm.conf -C nginx.conf public/
 
