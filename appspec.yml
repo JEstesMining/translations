@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+    - source: .
+      destination: /app
+#hooks:
+#    BeforeInstall:
+#        - location: scripts/migtaions.sh
+#        - location: scripts/stop-workers.sh
+#    AfterInstall:
+#        - location: scripts/after-install.sh
+#    ApplicationStart:
+#        - location: scripts/application-start.sh
+#    ValidateService:
+#        - location: scripts/validate-service.sh
