@@ -21,7 +21,7 @@ hooks:
     #      timeout: 300
     #      runas: www-data
     AfterInstall:
-        - location: /app/scripts/install-deps.sh
+        - location: scripts/install-deps.sh
           timeout: 300
     #ApplicationStart:
     #    - location: scripts/start-workers.sh
