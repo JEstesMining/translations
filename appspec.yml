@@ -16,13 +16,15 @@ hooks:
     #ApplicationStop:
     #    - location: scripts/stop-workers.sh
     #      runas: www-data
-    #BeforeInstall:
-    #    - location: scripts/migtaions.sh
-    #      timeout: 300
-    #      runas: www-data
-    AfterInstall:
+    BeforeInstall:
+        - location: scripts/migtaions.sh
+          timeout: 300
+          runas: www-data
         - location: scripts/install-deps.sh
           timeout: 300
+    #AfterInstall:
+    #    - location: scripts/install-deps.sh
+    #      timeout: 300
     #ApplicationStart:
     #    - location: scripts/start-workers.sh
     #      runas: www-data
