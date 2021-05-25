@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 set -e
 
-COMPOSER_ALLOW_SUPERUSER=1
-COMPOSER_HOME=/tmp/composer
+export COMPOSER_ALLOW_SUPERUSER=1
+export COMPOSER_HOME=/tmp/composer
 
 composer
 #yarn install
