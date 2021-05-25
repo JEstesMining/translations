@@ -2,7 +2,17 @@ version: 0.0
 os: linux
 files:
     - source: .
-      destination: /var/www/app.dascrypto.farm
+      destination: /app
+file_exists_behavior: OVERWRITE
+permissions:
+    - object: /app
+      pattern: "**"
+      owner: www-data
+      group: www-data
+      type:
+          - file
+          - directory
+
 #hooks:
 #    BeforeInstall:
 #        - location: scripts/migtaions.sh
