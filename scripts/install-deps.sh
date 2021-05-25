@@ -5,5 +5,5 @@ export COMPOSER_ALLOW_SUPERUSER=1
 export COMPOSER_HOME=/tmp/composer
 #export COMPOSER_VENDOR=/app/vendor
 
-composer install
+composer install --working-dir=/app --prefer-dist --no-dev --optimize-autoloader
 #yarn install
