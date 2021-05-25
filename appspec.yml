@@ -12,7 +12,6 @@ permissions:
       type:
           - file
           - directory
-
 hooks:
     #ApplicationStop:
     #    - location: scripts/stop-workers.sh
@@ -24,7 +23,6 @@ hooks:
     AfterInstall:
         - location: scripts/install-deps.sh
           timeout: 300
-          runas: www-data
     #ApplicationStart:
     #    - location: scripts/start-workers.sh
     #      runas: www-data
