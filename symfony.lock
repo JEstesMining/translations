@@ -94,6 +94,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.4"
     },
+    "klaviyo/php-sdk": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "6f3d5e0e102bf03f28144b8a42f6341a8f15f5d6"
+        },
+        "files": [
+            "config/packages/klaviyo.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.3.0"
     },
