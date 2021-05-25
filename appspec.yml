@@ -17,9 +17,8 @@ hooks:
     #    - location: scripts/stop-workers.sh
     #      runas: www-data
     BeforeInstall:
-        - location: scripts/migtaions.sh
-          timeout: 300
-          runas: www-data
+        #- location: scripts/migtaions.sh
+        #  timeout: 300
         - location: scripts/install-deps.sh
           timeout: 300
     #AfterInstall:
