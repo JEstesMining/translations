@@ -1,0 +1,8 @@
+<?php
+
+return array (
+  'AWS_ACCESS_KEY_ID' => NULL,
+  'AWS_SECRET_ACCESS_KEY' => NULL,
+  'KLAVIYO_PRIVATE_KEY' => NULL,
+  'KLAVIYO_PUBLIC_KEY' => NULL,
+);
