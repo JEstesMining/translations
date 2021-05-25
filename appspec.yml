@@ -13,13 +13,18 @@ permissions:
           - file
           - directory
 
-#hooks:
-#    BeforeInstall:
-#        - location: scripts/migtaions.sh
-#        - location: scripts/stop-workers.sh
-#    AfterInstall:
-#        - location: scripts/after-install.sh
-#    ApplicationStart:
-#        - location: scripts/application-start.sh
-#    ValidateService:
-#        - location: scripts/validate-service.sh
+hooks:
+    #ApplicationStop:
+    #    - location: scripts/stop-workers.sh
+    #      runas: www-data
+    #BeforeInstall:
+    #    - location: scripts/migtaions.sh
+    #      timeout: 300
+    #      runas: www-data
+    AfterInstall:
+        - location: scripts/install-deps.sh
+          timeout: 300
+          runas: www-data
+    #ApplicationStart:
+    #    - location: scripts/start-workers.sh
+    #      runas: www-data
