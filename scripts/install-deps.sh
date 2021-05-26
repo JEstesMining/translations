@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 set -e
 
+mkdir /app || true
+
 export APP_ENV=prod
 export COMPOSER_ALLOW_SUPERUSER=1
 export COMPOSER_HOME=/tmp/composer
