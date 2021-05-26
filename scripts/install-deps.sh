@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-mkdir -vp /app/{vendor,var,node_modules}
+#mkdir -vp /app
 
 export APP_ENV=prod
 export COMPOSER_ALLOW_SUPERUSER=1
