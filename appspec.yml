@@ -1,10 +1,15 @@
 version: 0.0
 os: linux
+file_exists_behavior: OVERWRITE
 files:
     - source: .
       destination: /app
-file_exists_behavior: OVERWRITE
+    - source: ./deploy/app.nginx.conf
+      destination: /etc/nginx/sites-enabled/app.conf
 permissions:
+    - object: /app
+      owner: www-data
+      group: www-data
     - object: /app
       pattern: "**"
       owner: www-data
