@@ -27,3 +27,5 @@ hooks:
     #ApplicationStart:
     #    - location: scripts/start-workers.sh
     #      runas: www-data
+    ValidateService:
+        - location: scripts/cleanup.sh
