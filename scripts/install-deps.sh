@@ -17,5 +17,5 @@ chown -R www-data:www-data ${DEPLOYMENT_ARCHIVE}/vendor
 
 #DEPLOYMENT_ARCHIVE=/opt/codedeploy-agent/deployment-root/${DEPLOYMENT_GROUP_ID}/${DEPLOYMENT_ID}/deployment-archive
 yarn --cwd ${DEPLOYMENT_ARCHIVE} --cache-folder /tmp/yarn --non-interactive --prod install
-#yarn --cwd /app --cache-folder /tmp/yarn --non-interactive --prod run build
+yarn --cwd ${DEPLOYMENT_ARCHIVE} --cache-folder /tmp/yarn --non-interactive --prod run build
 chown -R www-data:www-data ${DEPLOYMENT_ARCHIVE}/node_modules
