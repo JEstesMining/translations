@@ -8,9 +8,6 @@ files:
       destination: /etc/nginx/sites-enabled/app.conf
 permissions:
     - object: /app
-      owner: www-data
-      group: www-data
-    - object: /app
       pattern: "**"
       owner: www-data
       group: www-data
