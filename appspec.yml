@@ -5,7 +5,7 @@ files:
     - source: .
       destination: /app
     - source: ./deploy/app.nginx.conf
-      destination: /etc/nginx/sites-enabled/app.conf
+      destination: /etc/nginx/sites-enabled
 permissions:
     - object: /app
       pattern: "**"
