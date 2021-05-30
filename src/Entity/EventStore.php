@@ -40,12 +40,12 @@ class EventStore
     protected $createdAt;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
+     * @ORM\Column(type="json", nullable=false)
      */
     protected $payload;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="json", nullable=true)
      */
     protected $metadata;
 
