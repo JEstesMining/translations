@@ -7,5 +7,7 @@ return array (
   'DATABASE_URL' => NULL,
   'KLAVIYO_PRIVATE_KEY' => NULL,
   'KLAVIYO_PUBLIC_KEY' => NULL,
+  'LOCK_DSN' => NULL,
+  'MAILER_DSN' => NULL,
   'REDIS_URL' => NULL,
 );
