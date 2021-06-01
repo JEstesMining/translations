@@ -39,7 +39,7 @@ final class SendKlaviyoEventOnUserLoggedInEvent implements EventHandlerInterface
         $appEnv = getenv('APP_ENV');
         if ('prod' != $appEnv) {
             // Only do this in a prod environment
-            //return;
+            return;
         }
 
         $user = $this->manager->getRepository(User::class)->find($message->getPayloadValue('id'));
