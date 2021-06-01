@@ -3,7 +3,7 @@ framework:
         username_ip_login:
             policy: token_bucket
             limit: 5
-            rate: { interval: '5 minutes' }
+            rate: { interval: '3 minutes' }
         ip_login:
             policy: sliding_window
             limit: 50

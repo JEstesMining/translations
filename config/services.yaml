@@ -59,3 +59,6 @@ services:
             # which define the prefix to use for the keys to avoid collision on the Redis server
             # and the expiration time for any given entry (in seconds), defaults are 'sf_s' and null:
             # - { 'prefix': 'my_prefix', 'ttl': 600 }
+
+    Klaviyo\Klaviyo:
+        arguments: ['%env(KLAVIYO_PRIVATE_KEY)%', '%env(KLAVIYO_PUBLIC_KEY)%']
