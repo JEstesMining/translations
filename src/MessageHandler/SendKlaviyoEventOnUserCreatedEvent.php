@@ -42,14 +42,14 @@ final class SendKlaviyoEventOnUserCreatedEvent implements EventHandlerInterface
             return;
         }
 
-        $user = $this->manager->getRepository(User::class)->find($message->getPayloadValue('id'));
-
         $klaviyoEvent = new KlaviyoEvent([
             'event'               => 'Registered',
             'customer_properties' => [
-                '$email' => $user->getEmail(),
+                '$email' => $message->getPayloadValue('email'),
             ],
-            'properties' => [],
+            'properties' => [
+                'invite_code' => $message->getPayloadValue('invite_code'),
+            ],
             'time' => strtotime($message->getMetadataValue('timestamp')),
         ]);
         $this->klaviyo->publicAPI->track($klaviyoEvent);
