@@ -109,6 +109,5 @@ RUN chown -R nobody:0 /var/cache/nginx \
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-USER nobody
 ENTRYPOINT ["entrypoint.sh"]
 #CMD ["nginx", "-g", "daemon off;"]
