@@ -45,6 +45,8 @@ RUN apk add --update --no-cache \
     #coreutils \
     #make \
     #curl \
+    php7 \
+    php7-sodium \
     php7-fpm \
     php7-apcu \
     php7-ctype \
@@ -87,6 +89,10 @@ RUN rm -rf vendor/ public/build/
 COPY --from=vendor /app/vendor /app/vendor
 COPY --from=frontend /app/public/build /app/public/build
 RUN mkdir -vp var/cache/prod var/log
+
+# This is prolly a bad idea but fuck it
+#RUN php bin/console secrets:decrypt-to-local --force --env=prod
+
 # Cleanup files we no longer require
 RUN rm -rf assets/ \
       # Symfony shits itself without composer.json file, could touch the file?
@@ -94,7 +100,13 @@ RUN rm -rf assets/ \
       package.json \
       symfony.lock \
       yarn.lock \
-      webpack.config.js
+      webpack.config.js \
+      default.conf \
+      nginx.conf \
+      php-fpm.conf \
+      php.ini \
+      www.conf \
+      entrypoint.sh
 
 # fixes permissions
 #ARG UID=nginx
