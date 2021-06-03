@@ -1,0 +1,16 @@
+# @see https://docs.docker.com/engine/reference/builder/#dockerignore-file
+/assets
+/deploy
+/docker
+/scripts
+/tests
+/var
+
+appspec.yaml
+docker-compose.yaml
+Dockerfile
+nginx.conf
+php-fpm.conf
+Procfile
+
+*.log
