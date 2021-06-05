@@ -37,6 +37,7 @@ RUN yarn install && yarn run build
 ################################################################################
 FROM nginx:alpine
 
+ENV HOME="/app"
 ENV APP_ENV="prod"
 ENV APP_DEBUG="0"
 
