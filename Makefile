@@ -40,3 +40,9 @@ make.migration:
 
 app.invite.generate:
 	docker exec -it ${DOCKER_PHP_CONTAINER} bin/console app:invite:generate --env=dev -vvv -n --count=1
+
+build:
+	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 759356101899.dkr.ecr.us-east-1.amazonaws.com
+	docker build -t app .
+	docker tag app:latest 759356101899.dkr.ecr.us-east-1.amazonaws.com/app:latest
+	docker push 759356101899.dkr.ecr.us-east-1.amazonaws.com/app:latest
