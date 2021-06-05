@@ -91,7 +91,8 @@ COPY --from=frontend /app/public/build /app/public/build
 RUN mkdir -vp var/cache/prod var/log
 
 # This is prolly a bad idea but fuck it
-#RUN php bin/console secrets:decrypt-to-local --force --env=prod
+# Without this, it will use the .env file instead of the secrets files =\
+RUN php bin/console secrets:decrypt-to-local --force --env=prod
 
 # Cleanup files we no longer require
 RUN rm -rf assets/ \
