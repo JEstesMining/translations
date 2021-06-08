@@ -47,5 +47,8 @@ build:
 	docker tag app:latest 759356101899.dkr.ecr.us-east-1.amazonaws.com/app:latest
 	docker push 759356101899.dkr.ecr.us-east-1.amazonaws.com/app:latest
 
+translations.add:
+	git subtree add --prefix translations https://github.com/JEstesMining/translations.git master --squash
+
 translations.pull:
 	git subtree pull --prefix translations https://github.com/JEstesMining/translations.git master --squash
