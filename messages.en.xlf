@@ -42,6 +42,22 @@
                 <source>app.invite_code</source>
                 <target>Invite Code</target>
             </trans-unit>
+            <trans-unit id="app.update">
+                <source>app.update</source>
+                <target>Update</target>
+            </trans-unit>
+            <trans-unit id="app.settings">
+                <source>app.settings</source>
+                <target>Settings</target>
+            </trans-unit>
+            <trans-unit id="app.locale">
+                <source>app.locale</source>
+                <target>Locale</target>
+            </trans-unit>
+            <trans-unit id="app.timezone">
+                <source>app.timezone</source>
+                <target>Timezone</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
