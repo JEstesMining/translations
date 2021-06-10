@@ -2,6 +2,46 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="app.update_email">
+                <source>app.update_email</source>
+                <target>Update Email</target>
+            </trans-unit>
+            <trans-unit id="app.email">
+                <source>app.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="app.update_password">
+                <source>app.update_password</source>
+                <target>Update Password</target>
+            </trans-unit>
+            <trans-unit id="app.password">
+                <source>app.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="app.remember_me">
+                <source>app.remember_me</source>
+                <target>Remember Me</target>
+            </trans-unit>
+            <trans-unit id="app.register">
+                <source>app.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="app.sign_in">
+                <source>app.sign_in</source>
+                <target>Sign In</target>
+            </trans-unit>
+            <trans-unit id="app.forgot_password">
+                <source>app.forgot_password</source>
+                <target>Forgot Password</target>
+            </trans-unit>
+            <trans-unit id="app.continue">
+                <source>app.continue</source>
+                <target>Continue</target>
+            </trans-unit>
+            <trans-unit id="app.invite_code">
+                <source>app.invite_code</source>
+                <target>Invite Code</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
