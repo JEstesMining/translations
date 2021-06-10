@@ -30,9 +30,17 @@
                 <source>app.sign_in</source>
                 <target>Sign In</target>
             </trans-unit>
+            <trans-unit id="app.sign_out">
+                <source>app.sign_out</source>
+                <target>Sign Out</target>
+            </trans-unit>
             <trans-unit id="app.forgot_password">
                 <source>app.forgot_password</source>
                 <target>Forgot Password</target>
+            </trans-unit>
+            <trans-unit id="app.reset_password">
+                <source>app.reset_password</source>
+                <target>Reset Password</target>
             </trans-unit>
             <trans-unit id="app.continue">
                 <source>app.continue</source>
