@@ -10,6 +10,7 @@ File Format: {domain}.{locale}.xlf
 
 * `messages` - Generic
 * `security` - Security related messages
+* `validators` - Validation related messages
 
 I may add more domains as the app grows larger. Until that happens, most
 translations will be in the `messages` file.
